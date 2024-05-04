@@ -18,7 +18,11 @@ interface News {
 }
 
 // biome-ignore lint/correctness/noEmptyPattern: <explanation>
-export async function loader({}: LoaderFunctionArgs) {
+export async function loader({
+  context: {
+    cloudflare: { env },
+  },
+}: LoaderFunctionArgs) {
   const dummyValue: News[] = [
     {
       date: "2022-01-01",
