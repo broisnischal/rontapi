@@ -11,19 +11,13 @@ test("displays the page and the title", async ({ page }) => {
 });
 
 /**
- * You can interact with the wrangler binding similar to the remix app
-//  */
-// test("cache the README in KV", async ({ page, wrangler }) => {
-//   await wrangler.env.cache.put("github/README.md", "# cached-readme");
-//   await page.goto("/");
-
-//   const title = page.getByRole("heading", {
-//     name: "cached-readme",
-//     level: 1,
-//   });
-
-//   await expect(title).toBeVisible();
-// });
+ * test: cache the text to kv
+ */
+test("cache the text to kv", async ({ page, wrangler }) => {
+  await wrangler.env.cache.put("hello", "world");
+  expect(await wrangler.env.cache.get("hello")).toBe("world");
+  expect(await wrangler.env.cache.get("hello")).toContain("world");
+});
 
 /**
  * You can also mock the requests with MSW
