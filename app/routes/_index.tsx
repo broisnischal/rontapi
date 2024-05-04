@@ -1,37 +1,75 @@
-import { Button } from "@/components/ui/button";
-import type { MetaFunction } from "@remix-run/cloudflare";
+import NewsComponent from "@/components/common/news_component";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
+import { json } from "@remix-run/cloudflare";
+import { useLoaderData } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
     { title: "New Remix App" },
-    {
-      name: "description",
-      content: "Welcome to Remix! Using Vite and Cloudflare!",
-    },
+    { name: "description", content: "Welcome to Remix!" },
   ];
 };
 
+interface News {
+  date: string;
+  title: string;
+  body: string;
+  image?: string[];
+}
+
+// biome-ignore lint/correctness/noEmptyPattern: <explanation>
+export async function loader({}: LoaderFunctionArgs) {
+  const dummyValue: News[] = [
+    {
+      date: "2022-01-01",
+      title: "Test",
+      body: "lorem ipsum dolor sit amet",
+    },
+    {
+      date: "2022-01-01",
+      title: "Test",
+      body: "Test",
+    },
+    {
+      date: "2022-01-01",
+      title: "Test",
+      body: "lorem ipsum dolor sit amet",
+      image: ["https://picsum.photos/200"],
+    },
+    {
+      date: "2022-01-01",
+      title: "Test",
+      body: "Test",
+      image: ["https://picsum.photos/200"],
+    },
+    {
+      date: "2022-01-01",
+      title: "Test",
+      body: "lorem ipsum dolor sit amet",
+      image: ["https://picsum.photos/200", "https://picsum.photos/500"],
+    },
+    {
+      date: "2022-01-01",
+      title: "Test",
+      body: "Change",
+      image: ["https://picsum.photos/200"],
+    },
+  ];
+
+  return json({
+    data: dummyValue,
+  });
+}
+
 export default function Index() {
+  const data = useLoaderData<typeof loader>();
+
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1 className="text-5xl">Welcome to Remix (with Vite and Cloudflare)</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://developers.cloudflare.com/pages/framework-guides/deploy-a-remix-site/"
-            rel="noreferrer"
-          >
-            Cloudflare Pages Docs - Remix guide
-          </a>
-          k<Button>TEsting</Button>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+    <div className="w-[60%] m-auto my-20">
+      {data.data.map((item, index) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+        <NewsComponent key={index} {...item} />
+      ))}
     </div>
   );
 }
