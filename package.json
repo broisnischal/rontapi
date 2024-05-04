@@ -13,9 +13,12 @@
     "typegen": "wrangler types",
     "preview": "npm run build && wrangler pages dev",
     "cf-typegen": "wrangler types",
-    "migrate": "drizzle-kit generate:sqlite --out ./app/drizzle/migrations --schema ./app/drizzle/schema.server.ts"
+    "migrate": "drizzle-kit generate:sqlite --out ./app/drizzle/migrations --schema ./app/drizzle/schema.server.ts",
+    "test": "playwright test --ui",
+    "cleanup": "rimraf .cache ./build"
   },
   "dependencies": {
+    "@playwright/test": "^1.43.1",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-slot": "^1.0.2",
     "@remix-run/cloudflare": "^2.8.1",
@@ -29,9 +32,12 @@
     "localforage": "^1.10.0",
     "lucide-react": "^0.378.0",
     "miniflare": "^3.20240404.0",
+    "msw": "^2.2.14",
+    "playwright": "^1.43.1",
     "react": "^18.2.0",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18.2.0",
+    "rimraf": "^5.0.5",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "timeago.js": "^4.0.2"
@@ -43,6 +49,7 @@
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
+    "@vitest/ui": "^1.6.0",
     "autoprefixer": "^10.4.19",
     "drizzle-kit": "^0.20.17",
     "eslint": "^8.38.0",
