@@ -4,5 +4,6 @@
 interface Env {
   cache: KVNamespace;
   DB: D1Database;
-  AI: unknown;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  AI: any;
 }
