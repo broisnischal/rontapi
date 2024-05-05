@@ -14,7 +14,7 @@ export async function action({
 }: ActionFunctionArgs) {
   const { messages } = (await request.json()) as any;
 
-  const stream = (await env.AI.run("@cf/meta/llama-2-7b-chat-fp16", {
+  const stream = (await env.AI.run("@cf/meta/llama-3-8b-instruct", {
     messages,
     stream: true,
   })) as ReadableStream;
